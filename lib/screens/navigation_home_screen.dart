@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
+import '../theme/app_typography.dart';
+import 'theme_showcase_screen.dart';
 
 /// Navigation Home Screen
 /// Demonstrates multi-screen navigation using Navigator and named routes
@@ -12,8 +15,8 @@ class NavigationHomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Navigation Hub'),
-        backgroundColor: Colors.blue.shade700,
-        elevation: 0,
+        backgroundColor: AppColors.surface,
+        elevation: 1,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -21,12 +24,9 @@ class NavigationHomeScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Text(
+              Text(
                 'Multi-Screen Navigation Demo',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: AppTypography.headlineSmall,
               ),
               const SizedBox(height: 8),
               Text(
