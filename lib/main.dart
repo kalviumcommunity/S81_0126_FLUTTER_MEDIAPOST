@@ -15,6 +15,7 @@ import 'screens/navigation_nested_screen.dart';
 import 'screens/responsive_layout_demo.dart';
 import 'screens/scrollable_views_demo.dart';
 import 'screens/theme_showcase_screen.dart';
+import 'screens/user_input_form_screen.dart';
 import 'theme/app_theme.dart';
 import 'theme/app_colors.dart';
 import 'theme/app_typography.dart';
@@ -163,6 +164,20 @@ class DemoHomeScreen extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => const ThemeShowcaseScreen(),
+                    ),
+                  );
+                },
+              ),
+              _DemoCard(
+                title: 'User Input Forms',
+                description: 'Validation, text fields, and user feedback',
+                icon: Icons.edit,
+                color: Colors.teal,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const UserInputFormHub(),
                     ),
                   );
                 },
