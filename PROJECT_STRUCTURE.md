@@ -363,6 +363,41 @@ import '../services/auth_service.dart';
 
 ---
 
+## 📸 Implementation Screenshots
+
+### Working Application Evidence
+
+#### 1. **Flutter App - Auth Screen in Chrome**
+<img src="docs/screenshots/flutter_auth_screen.png" alt="Flutter App Authentication Screen" width="600">
+
+**Shows:**
+- ✅ Login/Signup form running in browser
+- ✅ Email, Password, Username, Bio input fields
+- ✅ Sign Up button visible
+- ✅ Switch to Login option ("Already have an account? Login")
+- ✅ Form validation working
+- ✅ App successfully running on localhost:58914
+
+#### 2. **Firebase Console - User Authentication**
+<img src="docs/screenshots/firebase_auth_users.png" alt="Firebase Console - Authentication Users" width="600">
+
+**Shows:**
+- ✅ Firebase Authentication enabled and working
+- ✅ User `test@example.com` successfully created
+- ✅ User created on: 29 Jan 2026
+- ✅ Signed in on: 29 Jan 2026
+- ✅ User UID: `HkbhH1A7UB07GDI99WBZ...`
+- ✅ Real-time sync between Flutter app and Firebase
+
+#### 3. **Integration Status**
+- ✅ Firebase credentials configured in `lib/firebase_options.dart`
+- ✅ AuthService connected to Firebase Authentication
+- ✅ AuthScreen integrated into main.dart routing
+- ✅ User data successfully persisted in Firebase
+- ✅ App-to-backend connection working
+
+---
+
 ## Reflection
 
 ### Why Understanding Project Structure is Important
