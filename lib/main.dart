@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'screens/stateless_stateful_demo.dart';
+import 'screens/devtools_demo.dart';
 
 void main() {
   runApp(const MyApp());
@@ -85,6 +86,27 @@ class _MyHomePageState extends State<MyHomePage> {
                     vertical: 16,
                   ),
                   backgroundColor: Colors.blue.shade700,
+                  foregroundColor: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const DevToolsDemoScreen(),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.build),
+                label: const Text('View DevTools Demo'),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 16,
+                  ),
+                  backgroundColor: Colors.purple.shade700,
                   foregroundColor: Colors.white,
                 ),
               ),
