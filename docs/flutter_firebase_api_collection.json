@@ -1,0 +1,530 @@
+{
+    
+  "info": {
+    "_postman_id": "instagram-clone-firebase-api",
+    "name": "Instagram Clone - Firebase API Documentation",
+    "description": "Comprehensive API documentation for Flutter Instagram Clone using Firebase services (Authentication, Firestore, Storage)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Sign Up",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"SecurePassword123!\",\n  \"username\": \"john_doe\",\n  \"bio\": \"Photography enthusiast\"\n}"
+            },
+            "url": {
+              "raw": "{{firebase_auth_endpoint}}/signUp?key={{firebase_api_key}}",
+              "protocol": "https",
+              "host": ["identitytoolkit.googleapis.com"],
+              "path": ["v1", "accounts:signUp"],
+              "query": [
+                {
+                  "key": "key",
+                  "value": "{{firebase_api_key}}"
+                }
+              ]
+            },
+            "description": "Create a new user account with Firebase Authentication"
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"SecurePassword123!\"\n}"
+                },
+                "url": {
+                  "raw": "{{firebase_auth_endpoint}}/signUp?key={{firebase_api_key}}",
+                  "host": ["identitytoolkit.googleapis.com"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [],
+              "body": "{\n  \"kind\": \"identitytoolkit#SignupNewUserResponse\",\n  \"idToken\": \"eyJhbGciOiJSUzI1NiIsImtpZCI6IjI2...\",\n  \"email\": \"user@example.com\",\n  \"refreshToken\": \"AEu4IL...\",\n  \"expiresIn\": \"3600\",\n  \"localId\": \"UOHuZs...\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Sign In",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"SecurePassword123!\",\n  \"returnSecureToken\": true\n}"
+            },
+            "url": {
+              "raw": "{{firebase_auth_endpoint}}/signInWithPassword?key={{firebase_api_key}}",
+              "protocol": "https",
+              "host": ["identitytoolkit.googleapis.com"],
+              "path": ["v1", "accounts:signInWithPassword"]
+            }
+          }
+        },
+        {
+          "name": "Get Current User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idToken\": \"{{firebase_id_token}}\"\n}"
+            },
+            "url": {
+              "raw": "{{firebase_auth_endpoint}}/lookup?key={{firebase_api_key}}",
+              "protocol": "https",
+              "host": ["identitytoolkit.googleapis.com"]
+            }
+          }
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "grant_type",
+                  "value": "refresh_token"
+                },
+                {
+                  "key": "refresh_token",
+                  "value": "{{firebase_refresh_token}}"
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://securetoken.googleapis.com/v1/token?key={{firebase_api_key}}",
+              "protocol": "https",
+              "host": ["securetoken.googleapis.com"],
+              "path": ["v1", "token"]
+            }
+          }
+        },
+        {
+          "name": "Sign Out",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idToken\": \"{{firebase_id_token}}\"\n}"
+            },
+            "url": {
+              "raw": "{{firebase_auth_endpoint}}/signOut?key={{firebase_api_key}}",
+              "protocol": "https",
+              "host": ["identitytoolkit.googleapis.com"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Firestore - Users",
+      "item": [
+        {
+          "name": "Create User Document",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{firebase_id_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fields\": {\n    \"uid\": {\"stringValue\": \"user123\"},\n    \"email\": {\"stringValue\": \"user@example.com\"},\n    \"username\": {\"stringValue\": \"john_doe\"},\n    \"bio\": {\"stringValue\": \"Photography enthusiast\"},\n    \"photoUrl\": {\"stringValue\": \"https://storage.googleapis.com/...\"},\n    \"followers\": {\"arrayValue\": {\"values\": []}},\n    \"following\": {\"arrayValue\": {\"values\": []}},\n    \"createdAt\": {\"timestampValue\": \"2026-01-28T10:00:00Z\"}\n  }\n}"
+            },
+            "url": {
+              "raw": "{{firestore_api_endpoint}}/databases/{{firestore_database}}/documents/users/{{user_id}}",
+              "protocol": "https",
+              "host": ["firestore.googleapis.com"],
+              "path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "users", "{{user_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Get User Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{firebase_id_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{firestore_api_endpoint}}/databases/{{firestore_database}}/documents/users/{{user_id}}",
+              "protocol": "https",
+              "host": ["firestore.googleapis.com"],
+              "path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "users", "{{user_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Update User Bio",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{firebase_id_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fields\": {\n    \"bio\": {\"stringValue\": \"Updated bio text\"}\n  }\n}"
+            },
+            "url": {
+              "raw": "{{firestore_api_endpoint}}/databases/{{firestore_database}}/documents/users/{{user_id}}",
+              "protocol": "https",
+              "host": ["firestore.googleapis.com"]
+            }
+          }
+        },
+        {
+          "name": "Search Users",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{firebase_id_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{firestore_api_endpoint}}/databases/{{firestore_database}}/documents/users?q=username:john",
+              "protocol": "https",
+              "host": ["firestore.googleapis.com"],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "username:john"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Firestore - Posts",
+      "item": [
+        {
+          "name": "Create Post",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{firebase_id_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fields\": {\n    \"postId\": {\"stringValue\": \"post123\"},\n    \"uid\": {\"stringValue\": \"user123\"},\n    \"username\": {\"stringValue\": \"john_doe\"},\n    \"userImage\": {\"stringValue\": \"https://...\"},\n    \"description\": {\"stringValue\": \"Beautiful sunset\"},\n    \"postUrl\": {\"stringValue\": \"https://storage.googleapis.com/...\"},\n    \"likes\": {\"arrayValue\": {\"values\": []}},\n    \"commentCount\": {\"integerValue\": \"0\"},\n    \"datePublished\": {\"timestampValue\": \"2026-01-28T10:00:00Z\"}\n  }\n}"
+            },
+            "url": {
+              "raw": "{{firestore_api_endpoint}}/databases/{{firestore_database}}/documents/posts",
+              "protocol": "https",
+              "host": ["firestore.googleapis.com"],
+              "path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "posts"]
+            }
+          }
+        },
+        {
+          "name": "Get All Posts (Feed)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{firebase_id_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{firestore_api_endpoint}}/databases/{{firestore_database}}/documents/posts?pageSize=20&orderBy=datePublished",
+              "protocol": "https",
+              "host": ["firestore.googleapis.com"],
+              "query": [
+                {
+                  "key": "pageSize",
+                  "value": "20"
+                },
+                {
+                  "key": "orderBy",
+                  "value": "datePublished"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Like Post",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{firebase_id_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fields\": {\n    \"likes\": {\n      \"arrayValue\": {\n        \"values\": [\n          {\"stringValue\": \"user123\"},\n          {\"stringValue\": \"user456\"}\n        ]\n      }\n    }\n  }\n}"
+            },
+            "url": {
+              "raw": "{{firestore_api_endpoint}}/databases/{{firestore_database}}/documents/posts/{{post_id}}",
+              "protocol": "https",
+              "host": ["firestore.googleapis.com"]
+            }
+          }
+        },
+        {
+          "name": "Unlike Post",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{firebase_id_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fields\": {\n    \"likes\": {\n      \"arrayValue\": {\n        \"values\": [\n          {\"stringValue\": \"user456\"}\n        ]\n      }\n    }\n  }\n}"
+            },
+            "url": {
+              "raw": "{{firestore_api_endpoint}}/databases/{{firestore_database}}/documents/posts/{{post_id}}",
+              "protocol": "https",
+              "host": ["firestore.googleapis.com"]
+            }
+          }
+        },
+        {
+          "name": "Get User Posts",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{firebase_id_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{firestore_api_endpoint}}/databases/{{firestore_database}}/documents/posts?where=uid==user123",
+              "protocol": "https",
+              "host": ["firestore.googleapis.com"],
+              "query": [
+                {
+                  "key": "where",
+                  "value": "uid==user123"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Post",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{firebase_id_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{firestore_api_endpoint}}/databases/{{firestore_database}}/documents/posts/{{post_id}}",
+              "protocol": "https",
+              "host": ["firestore.googleapis.com"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Firebase Storage",
+      "item": [
+        {
+          "name": "Upload Post Image",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{firebase_id_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "image/jpeg"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[Binary image data]"
+            },
+            "url": {
+              "raw": "{{firebase_storage_endpoint}}/b/{{firebase_project_id}}.appspot.com/o/posts/{{user_id}}/{{timestamp}}.jpg?uploadType=media",
+              "protocol": "https",
+              "host": ["www.googleapis.com"],
+              "path": ["upload", "storage", "v1", "b", "{{firebase_project_id}}.appspot.com", "o"],
+              "query": [
+                {
+                  "key": "uploadType",
+                  "value": "media"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Download URL",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{firebase_id_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{firebase_storage_endpoint}}/b/{{firebase_project_id}}.appspot.com/o/posts/{{user_id}}/{{image_name}}?alt=media",
+              "protocol": "https",
+              "host": ["www.googleapis.com"],
+              "query": [
+                {
+                  "key": "alt",
+                  "value": "media"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Image",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{firebase_id_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{firebase_storage_endpoint}}/b/{{firebase_project_id}}.appspot.com/o/posts/{{user_id}}/{{image_name}}",
+              "protocol": "https",
+              "host": ["www.googleapis.com"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "firebase_project_id",
+      "value": "your-project-id",
+      "type": "string"
+    },
+    {
+      "key": "firebase_api_key",
+      "value": "YOUR_API_KEY_HERE",
+      "type": "string"
+    },
+    {
+      "key": "firebase_id_token",
+      "value": "idToken_from_auth_response",
+      "type": "string"
+    },
+    {
+      "key": "firebase_refresh_token",
+      "value": "refreshToken_from_auth_response",
+      "type": "string"
+    },
+    {
+      "key": "user_id",
+      "value": "authenticated_user_uid",
+      "type": "string"
+    },
+    {
+      "key": "post_id",
+      "value": "post_document_id",
+      "type": "string"
+    },
+    {
+      "key": "firestore_api_endpoint",
+      "value": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents",
+      "type": "string"
+    },
+    {
+      "key": "firebase_auth_endpoint",
+      "value": "https://identitytoolkit.googleapis.com/v1/accounts",
+      "type": "string"
+    },
+    {
+      "key": "firebase_storage_endpoint",
+      "value": "https://www.googleapis.com/upload/storage/v1/b",
+      "type": "string"
+    }
+  ]
+}
