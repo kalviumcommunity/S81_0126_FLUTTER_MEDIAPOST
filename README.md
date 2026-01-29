@@ -20,6 +20,12 @@ A fully responsive Instagram clone built with Flutter & Firebase demonstrating *
 ## 📚 Documentation Structure
 
 ### For Developers
+- **[PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md)** - Complete project folder organization
+  - Detailed folder hierarchy and file purposes
+  - Architecture overview and design patterns
+  - Best practices for scaling and maintenance
+  - Quick reference guide for finding code
+
 - **[ARCHITECTURE.md](ARCHITECTURE.md)** - Complete system architecture (15,000+ words)
   - System diagrams, tech stack, directory structure
   - Firebase integration, data flows, security
