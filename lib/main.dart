@@ -12,6 +12,7 @@ import 'screens/details_screen.dart';
 import 'screens/navigation_profile_screen.dart';
 import 'screens/navigation_settings_screen.dart';
 import 'screens/navigation_nested_screen.dart';
+import 'screens/responsive_layout_demo.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -122,6 +123,20 @@ class DemoHomeScreen extends StatelessWidget {
                 color: Colors.green,
                 onTap: () {
                   Navigator.pushNamed(context, '/navigation');
+                },
+              ),
+              _DemoCard(
+                title: 'Responsive Layout Design',
+                description: 'Master Rows, Columns, Containers, and MediaQuery',
+                icon: Icons.device_unknown,
+                color: Colors.orange,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ResponsiveLayoutHub(),
+                    ),
+                  );
                 },
               ),
             ],
