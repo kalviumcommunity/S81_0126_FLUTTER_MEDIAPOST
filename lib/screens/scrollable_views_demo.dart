@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
+import '../theme/app_typography.dart';
 
 /// Scrollable Views Demo - ListView and GridView Demonstrations
 /// Demonstrates efficient scrolling with ListTile, ListView.builder, and GridView
@@ -10,7 +12,7 @@ class ScrollableViewsHub extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Scrollable Views'),
-        backgroundColor: Colors.deepPurple.shade700,
+        backgroundColor: AppColors.surface,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -18,12 +20,9 @@ class ScrollableViewsHub extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Text(
+              Text(
                 'Scrollable Views Demonstrations',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: AppTypography.headlineSmall,
               ),
               const SizedBox(height: 16),
               _DemoCard(

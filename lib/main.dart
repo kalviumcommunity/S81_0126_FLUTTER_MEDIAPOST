@@ -14,6 +14,10 @@ import 'screens/navigation_settings_screen.dart';
 import 'screens/navigation_nested_screen.dart';
 import 'screens/responsive_layout_demo.dart';
 import 'screens/scrollable_views_demo.dart';
+import 'screens/theme_showcase_screen.dart';
+import 'theme/app_theme.dart';
+import 'theme/app_colors.dart';
+import 'theme/app_typography.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,10 +44,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: isDemoMode ? 'Flutter Development Demos' : 'Instagram clone',
       theme: isDemoMode
-          ? ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-              useMaterial3: true,
-            )
+          ? AppTheme.lightTheme
           : ThemeData.dark().copyWith(
               scaffoldBackgroundColor: mobileBackgroundColor,
             ),
@@ -74,6 +75,7 @@ class DemoHomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Flutter Learning Demos'),
         centerTitle: true,
+        backgroundColor: AppColors.surface,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -81,12 +83,9 @@ class DemoHomeScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Text(
+              Text(
                 'Sprint #2 - Developer Tools & Widgets',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: AppTypography.headlineLarge,
               ),
               const SizedBox(height: 16),
               _DemoCard(
@@ -150,6 +149,20 @@ class DemoHomeScreen extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => const ScrollableViewsHub(),
+                    ),
+                  );
+                },
+              ),
+              _DemoCard(
+                title: 'Theme & Styling System',
+                description: 'Colors, typography, and consistent design patterns',
+                icon: Icons.palette,
+                color: Colors.pink,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ThemeShowcaseScreen(),
                     ),
                   );
                 },
