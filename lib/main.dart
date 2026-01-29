@@ -7,6 +7,11 @@ import 'package:instagram/screens/mobile_screen_layout.dart';
 import 'package:instagram/screens/web_screen_layout.dart';
 import 'screens/stateless_stateful_demo.dart';
 import 'screens/devtools_demo.dart';
+import 'screens/navigation_home_screen.dart';
+import 'screens/details_screen.dart';
+import 'screens/navigation_profile_screen.dart';
+import 'screens/navigation_settings_screen.dart';
+import 'screens/navigation_nested_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,29 +31,33 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Set to true to view demo screens instead of the main app
+    // Change isDemoMode to true to access all learning demos
     const bool isDemoMode = false;
-    
-    if (isDemoMode) {
-      return MaterialApp(
-        title: 'Flutter Development Demos',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-          useMaterial3: true,
-        ),
-        home: const DemoHomeScreen(),
-      );
-    }
     
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Instagram clone',
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: mobileBackgroundColor,
-      ),
-      home: const ResponsiveLayout(
-        mobileScreenLayout: MobileScreenLayout(),
-        webScreenLayout: WebScreenLayout(),
-      ),
+      title: isDemoMode ? 'Flutter Development Demos' : 'Instagram clone',
+      theme: isDemoMode
+          ? ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+              useMaterial3: true,
+            )
+          : ThemeData.dark().copyWith(
+              scaffoldBackgroundColor: mobileBackgroundColor,
+            ),
+      home: isDemoMode
+          ? const DemoHomeScreen()
+          : const ResponsiveLayout(
+              mobileScreenLayout: MobileScreenLayout(),
+              webScreenLayout: WebScreenLayout(),
+            ),
+      routes: {
+        '/navigation': (context) => const NavigationHomeScreen(),
+        '/details': (context) => const DetailsScreen(),
+        '/profile': (context) => const NavigationProfileScreen(),
+        '/settings': (context) => const SettingsScreen(),
+        '/nested': (context) => const NestedNavigationScreen(),
+      },
     );
   }
 }
@@ -104,6 +113,15 @@ class DemoHomeScreen extends StatelessWidget {
                       builder: (context) => const DevToolsDemoScreen(),
                     ),
                   );
+                },
+              ),
+              _DemoCard(
+                title: 'Multi-Screen Navigation',
+                description: 'Learn Navigator, named routes, and data passing',
+                icon: Icons.navigation,
+                color: Colors.green,
+                onTap: () {
+                  Navigator.pushNamed(context, '/navigation');
                 },
               ),
             ],
